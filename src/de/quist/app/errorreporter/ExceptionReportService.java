@@ -20,26 +20,6 @@
  */
 package de.quist.app.errorreporter;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.SocketException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.StringTokenizer;
-
-import javax.net.ssl.SSLException;
-
-import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.protocol.HTTP;
-
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Intent;
@@ -50,6 +30,20 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.Uri;
 import android.os.SystemClock;
 import android.util.Log;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.protocol.HTTP;
+
+import javax.net.ssl.SSLException;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.SocketException;
+import java.util.*;
 
 public class ExceptionReportService extends ReportingIntentService {
 
@@ -64,7 +58,8 @@ public class ExceptionReportService extends ReportingIntentService {
 	static final String EXTRA_MANUAL_REPORT = ExceptionReportService.class.getPackage().getName().concat(".extraManualReport");
 	static final String EXTRA_AVAILABLE_MEMORY = ExceptionReportService.class.getPackage().getName().concat(".extraAvailableMemory");
 	static final String EXTRA_TOTAL_MEMORY = ExceptionReportService.class.getPackage().getName().concat(".extraTotalMemory");
-	
+
+	//use connectivity manger to send when there's network connection
 	/**
 	 * Used internally to count retries.
 	 */
